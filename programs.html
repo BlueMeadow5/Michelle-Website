@@ -1,5 +1,11 @@
-<a href ="mainpage.html">Go back to main page!</a>
-<hr>
+<link href="styles.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
+
+
+
+
 <h1></h1>
 
 
@@ -7,6 +13,7 @@
 
 
     body {
+        font-family: 'Montserrat', sans-serif;
         background-color: #AEC6CF; /* Change this color to whatever you like */
 
     }
@@ -25,26 +32,24 @@
   .button:hover {
       background-color: #0056b3;
   }
+    .back{
+        height:15px;
+        text-align: center;
+    }
 
-  .button2 {
-      display: inline-block;
-      padding: 10px 20px;
-      font-size: 1em;
-      color: white;
-      background-color: #007BFF;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 5px;
-      cursor: pointer;
-  }
-
-  .button2:hover {
-      background-color: #0056b3;
-  }
+  
 </style>
 </head>
 <body>
+    <br>
+    <a class = "button back"href ="mainpage.html">Go back to main page!</a>
+    <hr>
+    <br>    
+    <h2>My Programs</h2>
+    <br>
 <a href="quiz.html" class="button"> Checklist in HTML</a>
-  <a href="learn.html" class="button2"> What I've learned in HTML</a>
+  <a href="learn.html" class="button"> What I've learned in HTML</a>
+    <a href="passport.html" class="button"> Passport Maker in HTML, CSS, Javascript</a>
+    
 </body>
 </html>
