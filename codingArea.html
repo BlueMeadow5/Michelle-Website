@@ -87,32 +87,26 @@
     </div>
 
     <script>
-        function adjustSizes() {
-            const editor = document.querySelector('.editor');
-            const output = document.querySelector('.output');
-            const content = document.querySelector('.content');
-            const totalWidth = content.offsetWidth;
-            const totalheight = content.offsetHeight;
+         
+        
+    function runCode() {
+        const code = document.getElementById('codeInput').value;
+        const outputFrame = document.getElementById('outputFrame');
+        outputFrame.srcdoc = code;
+    }
+    function adjustSizes() {
+        const editor = document.querySelector('.editor');
+        const output = document.querySelector('.output');
+        const content = document.querySelector('.content');
+        const totalWidth = content.offsetWidth;
 
-            // Set widths based on the ratio of their current widths
-            const editorRatio = editor.offsetWidth / totalWidth;
-            editor.style.width = (editorRatio * 100) + '%';
-            output.style.width = ((1 - editorRatio) * 100) + '%';
-            const editorRatio = editor.offsetHeight / totalHeight;
-            editor.style.height = (editorRatio * 100) + '%';
-            output.style.height = ((1 - editorRatio) * 100) + '%';
-
-        }
-
-        function runCode() {
-            const code = document.getElementById('codeInput').value;
-            const outputFrame = document.getElementById('outputFrame');
-            outputFrame.srcdoc = code;
-        }
-
-        window.addEventListener('load', adjustSizes);
-        window.addEventListener('resize', adjustSizes);
-        document.querySelector('.editor textarea').addEventListener('mouseup', adjustSizes);
-    </script>
+        const editorRatio = editor.offsetWidth / totalWidth;
+        editor.style.width = (editorRatio * 100) + '%';
+        output.style.width = ((1 - editorRatio) * 100) + '%';
+    }
+    window.addEventListener('load', adjustSizes);
+    window.addEventListener('resize', adjustSizes);
+    document.querySelector('.editor textarea').addEventListener('mouseup', adjustSizes);
+</script>
 </body>
 </html>
