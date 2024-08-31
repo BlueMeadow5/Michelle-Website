@@ -21,6 +21,7 @@
             padding: 0;
         }
         .header {
+            font-family: 'Montserrat', sans-serif;
             width: 100%;
             padding: 20px;
             background-color: #295F98;
@@ -28,6 +29,7 @@
             text-align: center;
         }
         .content {
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             width: 95%;
             margin-top: 20px;
@@ -38,6 +40,7 @@
             box-sizing: border-box;
         }
         .editor textarea {
+            font-family: 'Montserrat', sans-serif;
             width: 100%;
             height: 400px;
             font-family: monospace;
@@ -53,6 +56,7 @@
             border: none;
         }
         .button, button {
+            font-family: 'Montserrat', sans-serif;
             display: inline-block;
             padding: 10px 20px;
             font-size: 1em;
@@ -72,14 +76,17 @@
 <body>
     <div class="header">
         <a class="button" href="mainpage.html">Go Back</a>
+        
         <h1>Coding Area</h1>
-        <h4>Warning: Code doesn't save!</h4>
+        <h4>Warning: Code doesn't save, and only works in HTML!</h4>
     </div>
 
     <div class="content">
         <div class="editor">
             <textarea id="codeInput"></textarea>
             <button onclick="runCode()">Run Code</button>
+            <br><br>
+            <button onclick="window.location.href = 'learnCoding.html'">Don't know how to code? Learn over here the beginner HTML code!</button>
         </div>
         <div class="output">
             <iframe id="outputFrame"></iframe>
