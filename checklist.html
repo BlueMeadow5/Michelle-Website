@@ -90,7 +90,7 @@
         <h1></h1>
 
         <!-- Add more items as needed -->
-        <a class="button" href="programs.html" onclick="saveChecklist()">Go back</a>
+        <a class="button" href="programs.html" >Go back</a>
 
 
         
@@ -98,97 +98,38 @@
     </form>
     
     <script>
-
-
-        let htmlEditor, pythonEditor, cppEditor;
-        let currentEditor;
-
-        window.onload = function() {
-            htmlEditor = CodeMirror.fromTextArea(document.getElementById("htmlArea"), {
-                lineNumbers: true,
-                mode: "htmlmixed",
-                theme: "replit"
-            });
-
-            pythonEditor = CodeMirror.fromTextArea(document.getElementById("pythonArea"), {
-                lineNumbers: true,
-                mode: "python",
-                theme: "replit"
-            });
-
-            cppEditor = CodeMirror.fromTextArea(document.getElementById("cppArea"), {
-                lineNumbers: true,
-                mode: "text/x-c++src",
-                theme: "replit"
-            });
-
-            currentEditor = htmlEditor;
-
-            document.getElementById("languageSelect").addEventListener("change", function() {
-                let language = this.value;
-                switchLanguage(language);
-            });
-        };
-
-        function switchLanguage(language) {
-            document.querySelectorAll('.editor-container').forEach(el => el.classList.remove('active'));
-
-            switch(language) {
-                case "htmlmixed":
-                    document.getElementById("htmlEditor").classList.add('active');
-                    currentEditor = htmlEditor;
-                    break;
-                case "python":
-                    document.getElementById("pythonEditor").classList.add('active');
-                    currentEditor = pythonEditor;
-                    break;
-                case "text/x-c++src":
-                    document.getElementById("cppEditor").classList.add('active');
-                    currentEditor = cppEditor;
-                    break;
-            }
-            currentEditor.refresh();
-        }
-
-        function runCode() {
-            let code = currentEditor.getValue();
-            let language = document.getElementById("languageSelect").value;
-            let output = document.getElementById("output");
-
-            switch(language) {
-                case "htmlmixed":
-                    output.innerHTML = code;
-                    break;
-                case "python":
-                    output.innerText = "Python code (not executed):\n\n" + code;
-                    break;
-                case "text/x-c++src":
-                    output.innerText = "C++ code (not executed):\n\n" + code;
-                    break;
-            }
-        }
-                function saveChecklist() {
-                    const form = document.getElementById('checklistForm');
-                    const items = [];
-                    for (let i = 1; i <= 5; i++) {
-                        items.push({
-                            checked: form[`item${i}`].checked,
-                            text: form[`item${i}_text`].value
+                function saveCheckboxStates() {
+                    const checkboxes = document.querySelectorAll('#myChecklist input[type="checkbox"]');
+                    const states = {};
+                    checkboxes.forEach(checkbox => {
+                        states[checkbox.id] = checkbox.checked;
+                    });
+                    localStorage.setItem('checklistStates', JSON.stringify(states));
+                }
+                function loadCheckboxStates() {
+                    const savedStates = localStorage.getItem('checklistStates');
+                    if (savedStates) {
+                        const states = JSON.parse(savedStates);
+                        Object.keys(states).forEach(id => {
+                            const checkbox = document.getElementById(id);
+                            if (checkbox) {
+                                checkbox.checked = states[id];
+                            }
                         });
                     }
-                    localStorage.setItem('checklist', JSON.stringify(items));
                 }
-                function loadChecklist() {
-                    const savedItems = JSON.parse(localStorage.getItem('checklist'));
-                    if (savedItems) {
-                        const form = document.getElementById('checklistForm');
-                        for (let i = 0; i < savedItems.length; i++) {
-                            form[`item${i+1}`].checked = savedItems[i].checked;
-                            form[`item${i+1}_text`].value = savedItems[i].text;
-                        }
-                    }
-                }
-                window.onload = loadChecklist;
+                // Load saved states when the page loads
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    loadCheckboxStates();
+
+                    const checkboxes = document.querySelectorAll('#myChecklist input[type="checkbox"]');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.addEventListener('change', saveCheckboxStates);
+                    });
+                });
+                // Save states when the page is about to unload (close or navigate away)
+                window.addEventListener('beforeunload', saveCheckboxStates);
+
             </script>
 </body>
 
