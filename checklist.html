@@ -89,8 +89,7 @@
         <br>
         <h1></h1>
 
-        <!-- Add more items as needed -->
-        <a class="button" href="programs.html" >Go back</a>
+        <a class="button" href="programs.html" onclick="">Go back</a>
 
 
         
@@ -98,38 +97,39 @@
     </form>
     
     <script>
-                function saveCheckboxStates() {
-                    const checkboxes = document.querySelectorAll('#myChecklist input[type="checkbox"]');
-                    const states = {};
-                    checkboxes.forEach(checkbox => {
-                        states[checkbox.id] = checkbox.checked;
-                    });
-                    localStorage.setItem('checklistStates', JSON.stringify(states));
-                }
-                function loadCheckboxStates() {
-                    const savedStates = localStorage.getItem('checklistStates');
-                    if (savedStates) {
-                        const states = JSON.parse(savedStates);
-                        Object.keys(states).forEach(id => {
-                            const checkbox = document.getElementById(id);
-                            if (checkbox) {
-                                checkbox.checked = states[id];
-                            }
-                        });
+        document.addEventListener('DOMContentLoaded', function() {
+            function saveChecklist() {
+                const items = ['item1_text', 'item2_text', 'item3_text', 'item4_text', 'item5_text'];
+
+                for (let item of items) {
+                    const element = document.getElementById(item);
+                    if (element) {
+                        localStorage.setItem(item, element.value);
                     }
                 }
-                // Load saved states when the page loads
-                document.addEventListener('DOMContentLoaded', (event) => {
-                    loadCheckboxStates();
-
-                    const checkboxes = document.querySelectorAll('#myChecklist input[type="checkbox"]');
-                    checkboxes.forEach(checkbox => {
-                        checkbox.addEventListener('change', saveCheckboxStates);
-                    });
-                });
-                // Save states when the page is about to unload (close or navigate away)
-                window.addEventListener('beforeunload', saveCheckboxStates);
-
+            }
+            function loadSavedChecklist() {
+                const items = ['item1_text', 'item2_text', 'item3_text', 'item4_text', 'item5_text'];
+                for (let item of items) {
+                    const element = document.getElementById(item);
+                    const savedText = localStorage.getItem(item);
+                    if (element && savedText !== null) {
+                        element.value = savedText;
+                    }
+                }
+            }
+            // Load saved checklist when the page loads
+            loadSavedChecklist();
+            // Save checklist whenever an input changes
+            const items = ['item1_text', 'item2_text', 'item3_text', 'item4_text', 'item5_text'];
+            items.forEach(item => {
+                const element = document.getElementById(item);
+                if (element) {
+                    element.addEventListener('input', saveChecklist);
+                }
+            });
+        });
+        </script>
             </script>
 </body>
 
