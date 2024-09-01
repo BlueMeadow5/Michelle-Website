@@ -98,38 +98,28 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            function saveChecklist() {
-                const items = ['item1_text', 'item2_text', 'item3_text', 'item4_text', 'item5_text'];
+            const form = document.querySelector('form');
 
-                for (let item of items) {
-                    const element = document.getElementById(item);
-                    if (element) {
-                        localStorage.setItem(item, element.value);
-                    }
-                }
+            function saveChecklist() {
+                const inputs = form.querySelectorAll('input[type="text"]');
+                inputs.forEach((input, index) => {
+                    localStorage.setItem(`item${index+1}`, input.value);
+                });
             }
             function loadSavedChecklist() {
-                const items = ['item1_text', 'item2_text', 'item3_text', 'item4_text', 'item5_text'];
-                for (let item of items) {
-                    const element = document.getElementById(item);
-                    const savedText = localStorage.getItem(item);
-                    if (element && savedText !== null) {
-                        element.value = savedText;
+                const inputs = form.querySelectorAll('input[type="text"]');
+                inputs.forEach((input, index) => {
+                    const savedValue = localStorage.getItem(`item${index+1}`);
+                    if (savedValue !== null) {
+                        input.value = savedValue;
                     }
-                }
+                });
             }
             // Load saved checklist when the page loads
             loadSavedChecklist();
             // Save checklist whenever an input changes
-            const items = ['item1_text', 'item2_text', 'item3_text', 'item4_text', 'item5_text'];
-            items.forEach(item => {
-                const element = document.getElementById(item);
-                if (element) {
-                    element.addEventListener('input', saveChecklist);
-                }
-            });
+            form.addEventListener('input', saveChecklist);
         });
-        </script>
             </script>
 </body>
 
