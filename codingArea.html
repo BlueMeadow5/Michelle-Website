@@ -17,9 +17,16 @@
     <link rel="icon" href="./public/Computer logo for Michelle-Website.png" type="image/x-icon">
     <style>
         .CodeMirror {
-            height: 400px;
+            height: 300px;
             border: 1px solid #ddd;
         }
+        .editor-container {
+            display: none;
+        }
+        .editor-container.active {
+            display: block;
+        }
+        
         .cm-s-replit .cm-keyword { color: #FF79C6; }
         .cm-s-replit .cm-operator { color: #FF79C6; }
         .cm-s-replit .cm-variable-2 { color: #FF79C6; }
@@ -115,9 +122,22 @@
         <h4>Warning: Only works in HTML!</h4>
     </div>
     <div class="content">
-        <div class="editor">
-            <textarea id="codeInput"></textarea>
-            <button onclick="runCode()">Run Code</button>
+        <select id="languageSelect">
+            <option value="htmlmixed">HTML</option>
+            <option value="python">Python</option>
+            <option value="text/x-c++src">C++</option>
+        </select>
+        <div id="htmlEditor" class="editor-container active">
+            <textarea id="htmlArea"></textarea>
+        </div>
+        <div id="pythonEditor" class="editor-container">
+            <textarea id="pythonArea"></textarea>
+        </div>
+        <div id="cppEditor" class="editor-container">
+            <textarea id="cppArea"></textarea>
+        </div>
+        <button onclick="runCode()">Run Code</button>
+        <div id="output"></div>
             <button onclick="window.location.href = 'learnCoding.html'">Don't know how to code? Learn basic HTML code here!</button>
         </div>
         <div class="output">
@@ -125,7 +145,7 @@
         </div>
     </div>
     <script>
-       
+        
         var editor = CodeMirror.fromTextArea(document.getElementById("codeInput"), {
             mode: "htmlmixed",
             lineNumbers: true,
